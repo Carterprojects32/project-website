@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spirit Threads</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f1ee;
+      color: #3b2f2f;
+    }
+    header {
+      background: #8c3b2f;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+    nav {
+      background: #d8b08c;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px 0;
+    }
+    nav a {
+      color: #3b2f2f;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .hero {
+      background: url('images/navajo-texture.jpg') no-repeat center center/cover;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 0 2px 5px #000;
+    }
+    .hero h1 {
+      font-size: 3rem;
+    }
+    .section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    .section p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+    footer {
+      background: #8c3b2f;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    /* Admin Styles */
+    .secret-button {
+      background-color: black;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    #adminPanel {
+      display: none;
+      border: 2px dashed black;
+      padding: 20px;
+      margin: 30px;
+      background: #f8f8f8;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Spirit Threads</h1>
+    <p>Original Posters Inspired by Navajo Culture</p>
+  </header>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="/shop.html">Shop</a>
+    <a href="/contact.html">Contact</a>
+    <a href="https://tiktok.com/@yourmomstiktok" target="_blank">TikTok</a>
+  </nav>
+
+  <div class="hero">
+    <h1>Art Rooted in Spirit</h1>
+  </div>
+
+  <section class="section">
+    <h2>✨ Unique Designs</h2>
+    <p>Each poster is crafted with colors, patterns, and symbols that reflect the strength and identity of Indigenous beauty. Art should carry meaning and inspire pride.</p>
+  </section>
+
+  <section class="section" style="background: #ede0d4;">
+    <h2>🔥 Limited Drops</h2>
+    <p>Our collections are purposeful and small. Once a design sells out, it may never return — each piece is one of a kind, just like you.</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Spirit Threads. All rights reserved.</p>
+  </footer>
+
+  <!-- Admin Panel -->
+  <div id="adminPanel">
+    <h2>🛡️ Admin Panel</h2>
+    <p>This area is hidden unless accessed with the right key.</p>
+
+    <button class="secret-button" onclick="toggleNotes()">📓 Toggle Notes</button>
+    <div id="noteSection" style="display:none; margin-top:15px;">
+      <textarea id="adminNotes" style="width:100%; height:150px;"></textarea><br>
+      <button class="secret-button" onclick="saveNotes()">💾 Save</button>
+      <button class="secret-button" onclick="clearNotes()">🧹 Clear</button>
+    </div>
+
+    <hr>
+
+    <div id="todoSection" style="display:none;">
+      <h3>🧨 Secret To-Do Tracker</h3>
+      <input type="text" id="todoInput" placeholder="Enter a mission..." style="width:70%;" />
+      <button class="secret-button" onclick="addTodo()">➕ Add</button>
+      <ul id="todoList" style="margin-top:10px;"></ul>
+      <button class="secret-button" onclick="clearTodos()">🗑️ Clear All</button>
+    </div>
+
+    <hr>
+
+    <div id="incomeSection" style="display:none;">
+      <h3>💰 Income Tracker</h3>
+      <input type="number" id="incomeAmount" placeholder="Amount (USD)">
+      <input type="text" id="incomeNote" placeholder="Note">
+      <button class="secret-button" onclick="addIncome()">➕ Add</button>
+      <button class="secret-button" onclick="clearIncome()">🧹 Clear</button>
+      <h4>Total: $<span id="incomeTotal">0</span></h4>
+      <ul id="incomeList"></ul>
+    </div>
+
+    <hr>
+
+    <div id="expenseSection" style="display:none;">
+      <h3>💸 Expense Tracker</h3>
+      <input type="number" id="expenseAmount" placeholder="Amount (USD)">
+      <input type="text" id="expenseNote" placeholder="Note">
+      <button class="secret-button" onclick="addExpense()">➖ Add</button>
+      <button class="secret-button" onclick="clearExpenses()">🧹 Clear</button>
+      <h4>Total Spent: $<span id="expenseTotal">0</span></h4>
+      <ul id="expenseList"></ul>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get("key");
+
+    if (key === "4729") {
+      document.getElementById("adminPanel").style.display = "block";
+      document.getElementById("noteSection").style.display = "block";
+      document.getElementById("todoSection").style.display = "block";
+      document.getElementById("incomeSection").style.display = "block";
+      document.getElementById("expenseSection").style.display = "block";
+      loadTodos();
+      loadIncome();
+      loadExpenses();
+      document.getElementById("adminNotes").value = localStorage.getItem("secretNotes") || "";
+    }
+
+    // Notes
+    function toggleNotes() {
+      const section = document.getElementById("noteSection");
+      section.style.display = section.style.display === "none" ? "block" : "none";
+    }
+    function saveNotes() {
+      const notes = document.getElementById("adminNotes").value;
+      localStorage.setItem("secretNotes", notes);
+      alert("🛡️ Notes saved locally");
+    }
+    function clearNotes() {
+      localStorage.removeItem("secretNotes");
+      document.getElementById("adminNotes").value = "";
+      alert("🧹 Notes cleared");
+    }
+
+    // To-Do
+    function loadTodos() {
+      const todos = JSON.parse(localStorage.getItem("secretTodos") || "[]");
+      const list = document.getElementById("todoList");
+      list.innerHTML = "";
+      todos.forEach((task, i) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<input type="checkbox" ${task.done ? "checked" : ""} onclick="toggleTodo(${i})"> ${task.text}`;
+        list.appendChild(li);
+      });
+    }
+    function addTodo() {
+      const input = document.getElementById("todoInput");
+      const task = input.value.trim();
+      if (!task) return alert("Enter something!");
+      const todos = JSON.parse(localStorage.getItem("secretTodos") || "[]");
+      todos.push({ text: task, done: false });
+      localStorage.setItem("secretTodos", JSON.stringify(todos));
+      input.value = "";
+      loadTodos();
+    }
+    function toggleTodo(index) {
+      const todos = JSON.parse(localStorage.getItem("secretTodos") || "[]");
+      todos[index].done = !todos[index].done;
+      localStorage.setItem("secretTodos", JSON.stringify(todos));
+      loadTodos();
+    }
+    function clearTodos() {
+      if (confirm("Clear all missions?")) {
+        localStorage.removeItem("secretTodos");
+        loadTodos();
+      }
+    }
+
+    // Income
+    function loadIncome() {
+      const stored = JSON.parse(localStorage.getItem("incomeLog") || "[]");
+      const list = document.getElementById("incomeList");
+      let total = 0;
+      list.innerHTML = "";
+      stored.forEach(entry => {
+        total += entry.amount;
+        const li = document.createElement("li");
+        li.textContent = `$${entry.amount} — ${entry.note}`;
+        list.appendChild(li);
+      });
+      document.getElementById("incomeTotal").textContent = total.toFixed(2);
+    }
+    function addIncome() {
+      const amount = parseFloat(document.getElementById("incomeAmount").value);
+      const note = document.getElementById("incomeNote").value;
+      if (isNaN(amount) || !note) return alert("Fill both fields!");
+      const stored = JSON.parse(localStorage.getItem("incomeLog") || "[]");
+      stored.push({ amount, note });
+      localStorage.setItem("incomeLog", JSON.stringify(stored));
+      loadIncome();
+      document.getElementById("incomeAmount").value = "";
+      document.getElementById("incomeNote").value = "";
+    }
+    function clearIncome() {
+      if (confirm("Clear all income entries?")) {
+        localStorage.removeItem("incomeLog");
+        loadIncome();
+      }
+    }
+
+    // Expenses
+    function loadExpenses() {
+      const stored = JSON.parse(localStorage.getItem("expenseLog") || "[]");
+      const list = document.getElementById("expenseList");
+      let total = 0;
+      list.innerHTML = "";
+      stored.forEach(entry => {
+        total += entry.amount;
+        const li = document.createElement("li");
+        li.textContent = `$${entry.amount} — ${entry.note}`;
+        list.appendChild(li);
+      });
+      document.getElementById("expenseTotal").textContent = total.toFixed(2);
+    }
+    function addExpense() {
+      const amount = parseFloat(document.getElementById("expenseAmount").value);
+      const note = document.getElementById("expenseNote").value;
+      if (isNaN(amount) || !note) return alert("Fill both fields!");
+      const stored = JSON.parse(localStorage.getItem("expenseLog") || "[]");
+      stored.push({ amount, note });
+      localStorage.setItem("expenseLog", JSON.stringify(stored));
+      loadExpenses();
+      document.getElementById("expenseAmount").value = "";
+      document.getElementById("expenseNote").value = "";
+    }
+    function clearExpenses() {
+      if (confirm("Clear all expenses?")) {
+        localStorage.removeItem("expenseLog");
+        loadExpenses();
+      }
+    }
+  </script>
+</body>
+</html>
