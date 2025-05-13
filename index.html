@@ -112,33 +112,14 @@
   </footer>
 
   <script>
+    // Trigger: type '4729open' to show the admin panel
     let secretCode = '4729open';
     let inputBuffer = '';
-    let clickTimestamps = [];
-    let codeAccepted = false;
 
     document.addEventListener('keydown', (e) => {
       inputBuffer += e.key;
       if (inputBuffer.length > secretCode.length) inputBuffer = inputBuffer.slice(-secretCode.length);
-      if (inputBuffer === secretCode) {
-        codeAccepted = true;
-        clickTimestamps = []; // reset clicks when code is accepted
-      }
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!codeAccepted) return;
-
-      const now = Date.now();
-      clickTimestamps.push(now);
-      clickTimestamps = clickTimestamps.filter(t => now - t < 5000); // 5-second window
-
-      if (clickTimestamps.length >= 3) {
-        showAdminPanel();
-        codeAccepted = false; // reset after showing
-        clickTimestamps = [];
-        inputBuffer = '';
-      }
+      if (inputBuffer === secretCode) showAdminPanel();
     });
 
     function showAdminPanel() {
