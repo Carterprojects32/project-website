@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spirit Threads</title>
+  <title>Spirit Threads - Home</title>
   <style>
     body {
       margin: 0;
@@ -30,8 +30,8 @@
       font-weight: bold;
     }
     .hero {
-      background: url('images/navajo-texture.jpg') no-repeat center center/cover;
-      height: 60vh;
+      background: #8c3b2f;
+      height: 50vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -61,7 +61,7 @@
       padding: 15px;
     }
 
-    /* Admin Styles */
+    /* Admin Panel */
     .secret-button {
       background-color: black;
       color: white;
@@ -74,20 +74,19 @@
       display: none;
       border: 2px dashed black;
       padding: 20px;
-      margin: 30px;
+      margin: 40px auto;
       background: #f8f8f8;
+      max-width: 800px;
     }
   </style>
 </head>
 <body>
-
   <header>
     <h1>Spirit Threads</h1>
     <p>Original Posters Inspired by Navajo Culture</p>
   </header>
 
   <nav>
-    <a href="#">Home</a>
     <a href="/shop.html">Shop</a>
     <a href="/contact.html">Contact</a>
     <a href="https://tiktok.com/@yourmomstiktok" target="_blank">TikTok</a>
@@ -99,19 +98,15 @@
 
   <section class="section">
     <h2>✨ Unique Designs</h2>
-    <p>Each poster is crafted with colors, patterns, and symbols that reflect the strength and identity of Indigenous beauty. Art should carry meaning and inspire pride.</p>
+    <p>Each poster is carefully crafted with patterns, colors, and symbols that reflect the strength, history, and identity of Indigenous beauty. We believe art should carry meaning — and inspire pride.</p>
   </section>
 
   <section class="section" style="background: #ede0d4;">
     <h2>🔥 Limited Drops</h2>
-    <p>Our collections are purposeful and small. Once a design sells out, it may never return — each piece is one of a kind, just like you.</p>
+    <p>Our collections are small and purposeful. Once a design sells out, it may never return. That makes each piece one-of-a-kind, just like you.</p>
   </section>
 
-  <footer>
-    <p>&copy; 2025 Spirit Threads. All rights reserved.</p>
-  </footer>
-
-  <!-- Admin Panel -->
+  <!-- Secret Admin Panel -->
   <div id="adminPanel">
     <h2>🛡️ Admin Panel</h2>
     <p>This area is hidden unless accessed with the right key.</p>
@@ -123,9 +118,9 @@
       <button class="secret-button" onclick="clearNotes()">🧹 Clear</button>
     </div>
 
-    <hr>
+    <hr style="margin: 25px 0;">
 
-    <div id="todoSection" style="display:none;">
+    <div id="todoSection" style="display:none; margin-top:25px;">
       <h3>🧨 Secret To-Do Tracker</h3>
       <input type="text" id="todoInput" placeholder="Enter a mission..." style="width:70%;" />
       <button class="secret-button" onclick="addTodo()">➕ Add</button>
@@ -133,7 +128,7 @@
       <button class="secret-button" onclick="clearTodos()">🗑️ Clear All</button>
     </div>
 
-    <hr>
+    <hr style="margin: 25px 0;">
 
     <div id="incomeSection" style="display:none;">
       <h3>💰 Income Tracker</h3>
@@ -141,11 +136,12 @@
       <input type="text" id="incomeNote" placeholder="Note">
       <button class="secret-button" onclick="addIncome()">➕ Add</button>
       <button class="secret-button" onclick="clearIncome()">🧹 Clear</button>
+
       <h4>Total: $<span id="incomeTotal">0</span></h4>
       <ul id="incomeList"></ul>
     </div>
 
-    <hr>
+    <hr style="margin: 25px 0;">
 
     <div id="expenseSection" style="display:none;">
       <h3>💸 Expense Tracker</h3>
@@ -153,10 +149,15 @@
       <input type="text" id="expenseNote" placeholder="Note">
       <button class="secret-button" onclick="addExpense()">➖ Add</button>
       <button class="secret-button" onclick="clearExpenses()">🧹 Clear</button>
+
       <h4>Total Spent: $<span id="expenseTotal">0</span></h4>
       <ul id="expenseList"></ul>
     </div>
   </div>
+
+  <footer>
+    <p>&copy; 2025 Spirit Threads. All rights reserved.</p>
+  </footer>
 
   <script>
     const params = new URLSearchParams(window.location.search);
@@ -164,24 +165,19 @@
 
     if (key === "4729") {
       document.getElementById("adminPanel").style.display = "block";
-      document.getElementById("noteSection").style.display = "block";
+      document.getElementById("adminNotes").value = localStorage.getItem("secretNotes") || "";
       document.getElementById("todoSection").style.display = "block";
       document.getElementById("incomeSection").style.display = "block";
       document.getElementById("expenseSection").style.display = "block";
-      loadTodos();
-      loadIncome();
-      loadExpenses();
-      document.getElementById("adminNotes").value = localStorage.getItem("secretNotes") || "";
+      loadTodos(); loadIncome(); loadExpenses();
     }
 
-    // Notes
     function toggleNotes() {
       const section = document.getElementById("noteSection");
       section.style.display = section.style.display === "none" ? "block" : "none";
     }
     function saveNotes() {
-      const notes = document.getElementById("adminNotes").value;
-      localStorage.setItem("secretNotes", notes);
+      localStorage.setItem("secretNotes", document.getElementById("adminNotes").value);
       alert("🛡️ Notes saved locally");
     }
     function clearNotes() {
@@ -190,7 +186,6 @@
       alert("🧹 Notes cleared");
     }
 
-    // To-Do
     function loadTodos() {
       const todos = JSON.parse(localStorage.getItem("secretTodos") || "[]");
       const list = document.getElementById("todoList");
@@ -204,7 +199,7 @@
     function addTodo() {
       const input = document.getElementById("todoInput");
       const task = input.value.trim();
-      if (!task) return alert("Enter something!");
+      if (!task) return alert("Enter something first!");
       const todos = JSON.parse(localStorage.getItem("secretTodos") || "[]");
       todos.push({ text: task, done: false });
       localStorage.setItem("secretTodos", JSON.stringify(todos));
@@ -224,7 +219,6 @@
       }
     }
 
-    // Income
     function loadIncome() {
       const stored = JSON.parse(localStorage.getItem("incomeLog") || "[]");
       const list = document.getElementById("incomeList");
@@ -256,7 +250,6 @@
       }
     }
 
-    // Expenses
     function loadExpenses() {
       const stored = JSON.parse(localStorage.getItem("expenseLog") || "[]");
       const list = document.getElementById("expenseList");
