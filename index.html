@@ -1,32 +1,165 @@
-<script>
-  let secretCode = '4729open';
-  let inputBuffer = '';
-
-  document.addEventListener('keydown', (e) => {
-    inputBuffer += e.key;
-    if (inputBuffer.length > secretCode.length) {
-      inputBuffer = inputBuffer.slice(-secretCode.length);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spirit Threads - Home</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f1ee;
+      color: #3b2f2f;
     }
-    if (inputBuffer === secretCode) {
-      showAdminPanel();
+    header {
+      background: #8c3b2f;
+      padding: 20px;
+      color: white;
+      text-align: center;
     }
-  });
-
-  function showAdminPanel() {
-    const panel = document.getElementById('adminPanel');
-    panel.style.display = 'block';
-
-    // Remove accidental focus from any buttons
-    setTimeout(() => {
-      document.activeElement.blur();
-    }, 100);
-  }
-
-  function nukeSystem() {
-    const confirmed = confirm("Are you sure you want to self-destruct this panel?");
-    if (confirmed) {
-      alert('System self-destruct sequence initiated. Logging out...');
-      document.getElementById('adminPanel').remove();
+    nav {
+      background: #d8b08c;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px 0;
     }
-  }
-</script>
+    nav a {
+      color: #3b2f2f;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .hero {
+      background: #8c3b2f;
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 0 2px 5px #000;
+    }
+    .hero h1 {
+      font-size: 3rem;
+    }
+    .section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    .section p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+    footer {
+      background: #8c3b2f;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    #adminPanel {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 2px solid #3b2f2f;
+      border-radius: 12px;
+      padding: 30px;
+      background: #fff;
+      color: #3b2f2f;
+      max-width: 90%;
+      width: 300px;
+      z-index: 9999;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+      text-align: center;
+    }
+
+    #adminPanel button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #8c3b2f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #adminPanel button:hover {
+      background-color: #a1473a;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Spirit Threads</h1>
+    <p>Original Posters Inspired by Navajo Culture</p>
+  </header>
+
+  <nav>
+    <a href="/shop.html">Shop</a>
+    <a href="/contact.html">Contact</a>
+    <a href="https://tiktok.com/@yourmomstiktok" target="_blank">TikTok</a>
+  </nav>
+
+  <div class="hero">
+    <h1>Art Rooted in Spirit</h1>
+  </div>
+
+  <section class="section">
+    <h2>✨ Unique Designs</h2>
+    <p>Each poster is carefully crafted with patterns, colors, and symbols that reflect the strength, history, and identity of Indigenous beauty. We believe art should carry meaning — and inspire pride.</p>
+  </section>
+
+  <section class="section" style="background: #ede0d4;">
+    <h2>🔥 Limited Drops</h2>
+    <p>Our collections are small and purposeful. Once a design sells out, it may never return. That makes each piece one-of-a-kind, just like you.</p>
+  </section>
+
+  <div id="adminPanel">
+    <h2>🛡️ Admin Panel</h2>
+    <p>Welcome, Commander. Secure channel active.</p>
+    <button onclick="nukeSystem()">💣 Self-Destruct</button>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Spirit Threads. All rights reserved.</p>
+  </footer>
+
+  <script>
+    let secretCode = '4729open';
+    let inputBuffer = '';
+
+    document.addEventListener('keydown', (e) => {
+      inputBuffer += e.key;
+      if (inputBuffer.length > secretCode.length) {
+        inputBuffer = inputBuffer.slice(-secretCode.length);
+      }
+      if (inputBuffer === secretCode) {
+        showAdminPanel();
+      }
+    });
+
+    function showAdminPanel() {
+      const panel = document.getElementById('adminPanel');
+      panel.style.display = 'block';
+      setTimeout(() => {
+        document.activeElement.blur();
+      }, 100);
+    }
+
+    function nukeSystem() {
+      const confirmed = confirm("Are you sure you want to self-destruct this panel?");
+      if (confirmed) {
+        alert('System self-destruct sequence initiated. Logging out...');
+        document.getElementById('adminPanel').remove();
+      }
+    }
+  </script>
+</body>
+</html>
