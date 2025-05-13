@@ -112,7 +112,7 @@
   </footer>
 
   <script>
-    // Trigger: type '4729open' + click center of page 3x fast
+    // Trigger: type '4729open' + click center of page 3x within 5 seconds
     let secretCode = '4729open';
     let inputBuffer = '';
     let clickTimestamps = [];
@@ -130,7 +130,7 @@
     function stealthClickHandler(e) {
       const now = Date.now();
       clickTimestamps.push(now);
-      clickTimestamps = clickTimestamps.filter(t => now - t < 1000);
+      clickTimestamps = clickTimestamps.filter(t => now - t < 5000); // 5 seconds instead of 1
       if (clickTimestamps.length >= 3) {
         showAdminPanel();
         document.removeEventListener('click', stealthClickHandler);
