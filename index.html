@@ -112,30 +112,34 @@
   </footer>
 
   <script>
-    // Trigger: type '4729open' + click center of page 3x within 5 seconds
     let secretCode = '4729open';
     let inputBuffer = '';
     let clickTimestamps = [];
+    let codeAccepted = false;
 
     document.addEventListener('keydown', (e) => {
       inputBuffer += e.key;
       if (inputBuffer.length > secretCode.length) inputBuffer = inputBuffer.slice(-secretCode.length);
-      if (inputBuffer === secretCode) enableClickTrigger();
+      if (inputBuffer === secretCode) {
+        codeAccepted = true;
+        clickTimestamps = []; // reset clicks when code is accepted
+      }
     });
 
-    function enableClickTrigger() {
-      document.addEventListener('click', stealthClickHandler);
-    }
+    document.addEventListener('click', (e) => {
+      if (!codeAccepted) return;
 
-    function stealthClickHandler(e) {
       const now = Date.now();
       clickTimestamps.push(now);
-      clickTimestamps = clickTimestamps.filter(t => now - t < 5000); // 5 seconds instead of 1
+      clickTimestamps = clickTimestamps.filter(t => now - t < 5000); // 5-second window
+
       if (clickTimestamps.length >= 3) {
         showAdminPanel();
-        document.removeEventListener('click', stealthClickHandler);
+        codeAccepted = false; // reset after showing
+        clickTimestamps = [];
+        inputBuffer = '';
       }
-    }
+    });
 
     function showAdminPanel() {
       document.getElementById('adminPanel').style.display = 'block';
