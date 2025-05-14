@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Stealth Admin Site</title>
+  <title>Poster Site</title>
   <style>
     body {
-      font-family: sans-serif;
-      background: #f8f8f8;
-      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #333;
     }
 
     #adminPanel {
@@ -16,22 +20,22 @@
       position: fixed;
       top: 60px;
       right: 60px;
-      background: #222;
-      color: #fff;
+      background: #111;
+      color: white;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       z-index: 9999;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
     }
 
     #adminPanel button {
+      margin-top: 10px;
       background: red;
-      border: none;
       color: white;
+      border: none;
       padding: 10px 15px;
       border-radius: 5px;
       cursor: pointer;
-      margin-top: 10px;
     }
 
     #adminPanel button:hover {
@@ -41,12 +45,12 @@
 </head>
 <body>
   <h1>Welcome to the Poster Shop</h1>
-  <p>Browse our designs. Admin panel is hidden.</p>
+  <p>Browse our collection. Type your secret code to access admin features.</p>
 
   <!-- Hidden Admin Panel -->
   <div id="adminPanel">
     <h3>Admin Panel</h3>
-    <p>Welcome, admin.</p>
+    <p>Access granted. You're now in stealth mode.</p>
     <button onclick="nukeSystem()">Self-Destruct</button>
   </div>
 
@@ -66,11 +70,14 @@
 
     function showAdminPanel() {
       const panel = document.getElementById('adminPanel');
-      panel.style.display = 'block';
-
-      setTimeout(() => {
-        document.activeElement.blur();
-      }, 100);
+      if (panel) {
+        panel.style.display = 'block';
+        setTimeout(() => {
+          document.activeElement.blur();
+        }, 100);
+      } else {
+        alert("Admin panel not found in HTML.");
+      }
     }
 
     function nukeSystem() {
