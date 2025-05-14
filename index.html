@@ -1,183 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Poster Shop</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posters by Mom</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fefefe;
-      color: #222;
-      margin: 0;
-      padding: 40px;
-    }
-
-    header {
-      background: #000;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-
-    main {
-      margin-top: 20px;
-    }
-
-    .product {
-      background: #fff;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
     #adminPanel {
       display: none;
-      position: fixed;
-      top: 60px;
-      right: 60px;
-      width: 350px;
-      background: #111;
-      color: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-      z-index: 1000;
-    }
-
-    #adminPanel h2 {
-      margin-top: 0;
-    }
-
-    #adminPanel input,
-    #adminPanel textarea {
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 8px;
-      border: none;
-      border-radius: 4px;
-    }
-
-    #adminPanel button {
-      margin-top: 10px;
-      width: 100%;
-      background: #333;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #adminPanel button:hover {
-      background: #555;
-    }
-
-    #adminPanel .danger {
-      background: crimson;
-    }
-
-    #adminPanel .danger:hover {
-      background: darkred;
-    }
-
-    .poster-list {
-      margin-top: 10px;
-    }
-
-    .poster-item {
-      background: #222;
-      padding: 8px;
-      margin-bottom: 6px;
-      border-radius: 6px;
     }
   </style>
 </head>
-<body>
-  <header>
-    <h1>Poster Shop</h1>
-    <p>Custom-designed posters inspired by your favorite creators</p>
-  </header>
+<body class="bg-white text-gray-800 font-sans">
+  <!-- HERO SECTION -->
+  <section class="text-center py-20 bg-gray-100">
+    <h1 class="text-4xl font-bold mb-4">Posters That Speak Your Style</h1>
+    <p class="text-lg mb-6">Custom designs inspired by our TikTok community. Printed with love, shipped with care.</p>
+    <a href="#posters" class="inline-block bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition">🛍️ Browse Posters</a>
+  </section>
 
-  <main id="posterDisplay">
-    <!-- Posters will be displayed here -->
-  </main>
+  <!-- ABOUT SECTION -->
+  <section class="max-w-2xl mx-auto py-16 px-4" id="about">
+    <h2 class="text-2xl font-semibold mb-4">Made by Mom</h2>
+    <p class="text-gray-700 text-lg">I started designing posters as a way to turn my TikTok creativity into something real. Every piece is inspired by what you all love—bold, aesthetic, sometimes weird—and always personal. Thanks for being part of this journey 💖</p>
+  </section>
 
-  <div id="adminPanel">
-    <h2>Admin Panel</h2>
+  <!-- POSTERS SECTION -->
+  <section id="posters" class="bg-white py-16 px-4">
+    <h2 class="text-2xl font-semibold text-center mb-10">Featured Posters</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div class="text-center">
+        <img src="https://via.placeholder.com/400x600?text=Galaxy+Dream" alt="Galaxy Dream" class="mx-auto rounded shadow">
+        <h3 class="mt-4 font-semibold">Galaxy Dream</h3>
+        <p class="text-gray-600">$15</p>
+      </div>
+      <div class="text-center">
+        <img src="https://via.placeholder.com/400x600?text=Bold+Lines" alt="Bold Lines" class="mx-auto rounded shadow">
+        <h3 class="mt-4 font-semibold">Bold Lines</h3>
+        <p class="text-gray-600">$12</p>
+      </div>
+      <div class="text-center">
+        <img src="https://via.placeholder.com/400x600?text=Soft+Noise" alt="Soft Noise" class="mx-auto rounded shadow">
+        <h3 class="mt-4 font-semibold">Soft Noise</h3>
+        <p class="text-gray-600">$18</p>
+      </div>
+    </div>
+  </section>
 
-    <h3>🖼️ Add New Poster</h3>
-    <input id="posterTitle" placeholder="Poster Title" />
-    <textarea id="posterDesc" placeholder="Poster Description"></textarea>
-    <input id="posterImg" placeholder="Image URL" />
-    <button onclick="addPoster()">Add Poster</button>
+  <!-- COMING SOON -->
+  <section class="text-center py-12 bg-gray-100">
+    <h2 class="text-xl font-semibold mb-2">👕 Merch Coming Soon</h2>
+    <p class="text-gray-700">We're cooking up more than just posters. Stay tuned for exclusive merch drops!</p>
+  </section>
 
-    <h3>💰 Earnings</h3>
-    <p>Total: $0.00 (Simulated)</p>
+  <!-- FOLLOW US -->
+  <section class="text-center py-12">
+    <h2 class="text-xl font-semibold mb-2">Follow Us on TikTok</h2>
+    <a href="https://tiktok.com/@PosterByMom" target="_blank" class="text-blue-500 hover:underline">@PosterByMom</a>
+  </section>
 
-    <h3>👁️ Visitor Logs</h3>
-    <div id="visitorLogs">No data logged.</div>
+  <!-- SHIPPING -->
+  <section class="max-w-2xl mx-auto py-16 px-4">
+    <h2 class="text-2xl font-semibold mb-4">Fast Shipping & Easy Returns</h2>
+    <p class="text-gray-700 text-lg">Posters ship in 2–3 days with love from our home studio. Problems with your order? No stress—just reach out and we’ll fix it.</p>
+  </section>
 
-    <button class="danger" onclick="nukeSystem()">💣 Self-Destruct</button>
-  </div>
+  <!-- HIDDEN ADMIN PANEL -->
+  <section id="adminPanel" class="fixed bottom-0 right-0 bg-black text-white p-6 rounded-tl-lg z-50 shadow-lg">
+    <h2 class="text-xl font-bold mb-2">Admin Panel</h2>
+    <p class="mb-4">Secret admin controls live here.</p>
+    <button onclick="document.getElementById('adminPanel').style.display='none'" class="bg-red-600 px-4 py-2 rounded hover:bg-red-700">🧨 Self-Destruct</button>
+  </section>
 
+  <!-- FOOTER -->
+  <footer class="text-center py-6 bg-gray-200 text-sm">
+    <p>© 2025 PosterByMom</p>
+    <p>Email us: <a href="mailto:posterbymom@gmail.com" class="text-blue-600">posterbymom@gmail.com</a></p>
+    <p><a href="https://tiktok.com/@PosterByMom" class="text-blue-600">TikTok: @PosterByMom</a></p>
+    <p class="mt-2 text-gray-500">Built with love (and a little HTML magic)</p>
+  </footer>
+
+  <!-- SECRET TRIGGER -->
   <script>
-    let secretCode = '4729open';
-    let inputBuffer = '';
-    const posters = [];
-
-    document.addEventListener('keydown', (e) => {
-      inputBuffer += e.key;
-      if (inputBuffer.length > secretCode.length) {
-        inputBuffer = inputBuffer.slice(-secretCode.length);
+    let inputCode = '';
+    document.addEventListener('keydown', function(e) {
+      inputCode += e.key;
+      if (inputCode.includes('4729open')) {
+        document.getElementById('adminPanel').style.display = 'block';
+        inputCode = '';
       }
-      if (inputBuffer === secretCode) {
-        showAdminPanel();
-      }
+      if (inputCode.length > 20) inputCode = inputCode.slice(-10);
     });
-
-    function showAdminPanel() {
-      document.getElementById('adminPanel').style.display = 'block';
-      setTimeout(() => document.activeElement.blur(), 100);
-    }
-
-    function nukeSystem() {
-      if (confirm("Are you sure you want to self-destruct?")) {
-        alert("BOOM! Panel destroyed.");
-        document.getElementById('adminPanel').remove();
-      }
-    }
-
-    function addPoster() {
-      const title = document.getElementById('posterTitle').value;
-      const desc = document.getElementById('posterDesc').value;
-      const img = document.getElementById('posterImg').value;
-
-      if (!title || !desc || !img) {
-        alert("Please fill out all fields.");
-        return;
-      }
-
-      const newPoster = { title, desc, img };
-      posters.push(newPoster);
-      displayPosters();
-    }
-
-    function displayPosters() {
-      const container = document.getElementById('posterDisplay');
-      container.innerHTML = '';
-      posters.forEach(poster => {
-        const div = document.createElement('div');
-        div.className = 'product';
-        div.innerHTML = `
-          <h2>${poster.title}</h2>
-          <p>${poster.desc}</p>
-          <img src="${poster.img}" alt="${poster.title}" style="max-width:100%; border-radius:10px; margin-top:10px;" />
-        `;
-        container.appendChild(div);
-      });
-    }
   </script>
 </body>
 </html>
