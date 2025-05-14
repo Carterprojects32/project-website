@@ -6,7 +6,7 @@
   <title>Posters by Mom</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    #adminPanel {
+    #supportConsole {
       display: none;
     }
   </style>
@@ -65,29 +65,29 @@
     <p class="text-gray-700 text-lg">Posters ship in 2–3 days with love from our home studio. Problems with your order? No stress—just reach out and we’ll fix it.</p>
   </section>
 
-  <!-- HIDDEN ADMIN PANEL -->
-  <section id="adminPanel" class="fixed bottom-0 right-0 bg-black text-white p-6 rounded-tl-lg z-50 shadow-lg w-96 max-h-screen overflow-y-auto">
-    <h2 class="text-xl font-bold mb-2">Admin Panel</h2>
-    <p class="mb-4 text-sm text-gray-300">Welcome, Carterprojects32. You are in full control.</p>
+  <!-- SUPPORT CONSOLE (Disguised Admin Panel) -->
+  <section id="supportConsole" class="fixed bottom-0 right-0 bg-black text-white p-6 rounded-tl-lg z-50 shadow-lg w-96 max-h-screen overflow-y-auto">
+    <h2 class="text-xl font-bold mb-2">Support Console</h2>
+    <p class="mb-4 text-sm text-gray-300">Developer keyboard accessibility and poster tools.</p>
 
-    <!-- Poster Upload Form -->
+    <!-- Upload Poster -->
     <div class="mb-4">
-      <input id="posterImage" type="text" placeholder="Image URL" class="w-full mb-2 px-2 py-1 rounded text-black">
-      <input id="posterTitle" type="text" placeholder="Poster Title" class="w-full mb-2 px-2 py-1 rounded text-black">
-      <input id="posterPrice" type="text" placeholder="Price" class="w-full mb-2 px-2 py-1 rounded text-black">
-      <button onclick="addPoster()" class="bg-green-600 px-3 py-2 rounded w-full hover:bg-green-700 text-sm">➕ Add Poster</button>
+      <input id="imgUrl" type="text" placeholder="Image URL" class="w-full mb-2 px-2 py-1 rounded text-black">
+      <input id="imgTitle" type="text" placeholder="Poster Title" class="w-full mb-2 px-2 py-1 rounded text-black">
+      <input id="imgPrice" type="text" placeholder="Price" class="w-full mb-2 px-2 py-1 rounded text-black">
+      <button onclick="submitPoster()" class="bg-green-600 px-3 py-2 rounded w-full hover:bg-green-700 text-sm">➕ Add Poster</button>
     </div>
 
-    <!-- Transaction Summary -->
+    <!-- Stats -->
     <div class="mb-4 border-t border-gray-700 pt-4">
       <h3 class="text-md font-semibold mb-2">💰 Earnings Tracker</h3>
-      <p>Total Earnings: <span id="earnings" class="font-bold">$45</span></p>
-      <p>Posters Sold: <span id="posterCount" class="font-bold">3</span></p>
+      <p>Total Earnings: <span id="eTotal" class="font-bold">$45</span></p>
+      <p>Posters Sold: <span id="eCount" class="font-bold">3</span></p>
     </div>
 
-    <!-- Self-Destruct -->
-    <button onclick="document.getElementById('adminPanel').style.display='none'" class="bg-red-600 px-4 py-2 rounded hover:bg-red-700 text-sm mt-2 w-full">
-      🧨 Self-Destruct
+    <!-- Hide Console -->
+    <button onclick="hideConsole()" class="bg-red-600 px-4 py-2 rounded hover:bg-red-700 text-sm mt-2 w-full">
+      🧨 Exit
     </button>
   </section>
 
@@ -99,25 +99,25 @@
     <p class="mt-2 text-gray-500">Built with love (and a little HTML magic)</p>
   </footer>
 
-  <!-- SCRIPT: SECRET TRIGGER & POSTER FUNCTION -->
+  <!-- DISGUISED DEV SCRIPT -->
   <script>
-    let inputCode = '';
-    let totalEarnings = 45;
-    let postersSold = 3;
+    let keyLog = '';
+    let _cash = 45;
+    let _sold = 3;
 
-    document.addEventListener('keydown', function(e) {
-      inputCode += e.key;
-      if (inputCode.includes('4729open')) {
-        document.getElementById('adminPanel').style.display = 'block';
-        inputCode = '';
+    document.addEventListener('keydown', function(ev) {
+      keyLog += ev.key;
+      if (keyLog.includes('4729open')) {
+        document.getElementById('supportConsole').style.display = 'block';
+        keyLog = '';
       }
-      if (inputCode.length > 20) inputCode = inputCode.slice(-10);
+      if (keyLog.length > 20) keyLog = keyLog.slice(-10);
     });
 
-    function addPoster() {
-      const img = document.getElementById('posterImage').value;
-      const title = document.getElementById('posterTitle').value;
-      const price = parseFloat(document.getElementById('posterPrice').value);
+    function submitPoster() {
+      const img = document.getElementById('imgUrl').value;
+      const title = document.getElementById('imgTitle').value;
+      const price = parseFloat(document.getElementById('imgPrice').value);
       if (!img || !title || isNaN(price)) return alert('Fill out all fields with valid data');
 
       const grid = document.getElementById('posterGrid');
@@ -130,16 +130,18 @@
       `;
       grid.appendChild(card);
 
-      // Update earnings
-      totalEarnings += price;
-      postersSold++;
-      document.getElementById('earnings').textContent = `$${totalEarnings}`;
-      document.getElementById('posterCount').textContent = postersSold;
+      _cash += price;
+      _sold++;
+      document.getElementById('eTotal').textContent = `$${_cash}`;
+      document.getElementById('eCount').textContent = _sold;
 
-      // Clear fields
-      document.getElementById('posterImage').value = '';
-      document.getElementById('posterTitle').value = '';
-      document.getElementById('posterPrice').value = '';
+      document.getElementById('imgUrl').value = '';
+      document.getElementById('imgTitle').value = '';
+      document.getElementById('imgPrice').value = '';
+    }
+
+    function hideConsole() {
+      document.getElementById('supportConsole').style.display = 'none';
     }
   </script>
 </body>
