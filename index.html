@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Poster Shop</title>
   <style>
     body {
@@ -29,7 +29,7 @@
       padding: 20px;
       margin-bottom: 20px;
       border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     #adminPanel {
@@ -37,17 +37,26 @@
       position: fixed;
       top: 60px;
       right: 60px;
-      width: 300px;
+      width: 350px;
       background: #111;
       color: #fff;
       padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
       z-index: 1000;
     }
 
     #adminPanel h2 {
       margin-top: 0;
+    }
+
+    #adminPanel input,
+    #adminPanel textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
     }
 
     #adminPanel button {
@@ -72,6 +81,17 @@
     #adminPanel .danger:hover {
       background: darkred;
     }
+
+    .poster-list {
+      margin-top: 10px;
+    }
+
+    .poster-item {
+      background: #222;
+      padding: 8px;
+      margin-bottom: 6px;
+      border-radius: 6px;
+    }
   </style>
 </head>
 <body>
@@ -80,32 +100,32 @@
     <p>Custom-designed posters inspired by your favorite creators</p>
   </header>
 
-  <main>
-    <div class="product">
-      <h2>Galaxy Poster</h2>
-      <p>High-quality print, perfect for bedrooms or gaming setups.</p>
-    </div>
-
-    <div class="product">
-      <h2>Motivational Poster</h2>
-      <p>"Stay Dangerous." – Clean, bold typography on matte black.</p>
-    </div>
-
-    <p><em>More posters dropping soon. Follow us on TikTok.</em></p>
+  <main id="posterDisplay">
+    <!-- Posters will be displayed here -->
   </main>
 
-  <!-- Stealth Admin Panel -->
   <div id="adminPanel">
     <h2>Admin Panel</h2>
-    <button onclick="alert('Product Manager Coming Soon')">🛠️ Manage Posters</button>
-    <button onclick="alert('Earnings: $0.00 (Live tracking coming soon)')">💰 View Earnings</button>
-    <button onclick="alert('No visitor data available (yet)')">👁️ Visitor Logs</button>
+
+    <h3>🖼️ Add New Poster</h3>
+    <input id="posterTitle" placeholder="Poster Title" />
+    <textarea id="posterDesc" placeholder="Poster Description"></textarea>
+    <input id="posterImg" placeholder="Image URL" />
+    <button onclick="addPoster()">Add Poster</button>
+
+    <h3>💰 Earnings</h3>
+    <p>Total: $0.00 (Simulated)</p>
+
+    <h3>👁️ Visitor Logs</h3>
+    <div id="visitorLogs">No data logged.</div>
+
     <button class="danger" onclick="nukeSystem()">💣 Self-Destruct</button>
   </div>
 
   <script>
     let secretCode = '4729open';
     let inputBuffer = '';
+    const posters = [];
 
     document.addEventListener('keydown', (e) => {
       inputBuffer += e.key;
@@ -118,17 +138,45 @@
     });
 
     function showAdminPanel() {
-      const panel = document.getElementById('adminPanel');
-      panel.style.display = 'block';
+      document.getElementById('adminPanel').style.display = 'block';
       setTimeout(() => document.activeElement.blur(), 100);
     }
 
     function nukeSystem() {
-      const confirmed = confirm("Are you sure you want to self-destruct?");
-      if (confirmed) {
+      if (confirm("Are you sure you want to self-destruct?")) {
         alert("BOOM! Panel destroyed.");
         document.getElementById('adminPanel').remove();
       }
+    }
+
+    function addPoster() {
+      const title = document.getElementById('posterTitle').value;
+      const desc = document.getElementById('posterDesc').value;
+      const img = document.getElementById('posterImg').value;
+
+      if (!title || !desc || !img) {
+        alert("Please fill out all fields.");
+        return;
+      }
+
+      const newPoster = { title, desc, img };
+      posters.push(newPoster);
+      displayPosters();
+    }
+
+    function displayPosters() {
+      const container = document.getElementById('posterDisplay');
+      container.innerHTML = '';
+      posters.forEach(poster => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.innerHTML = `
+          <h2>${poster.title}</h2>
+          <p>${poster.desc}</p>
+          <img src="${poster.img}" alt="${poster.title}" style="max-width:100%; border-radius:10px; margin-top:10px;" />
+        `;
+        container.appendChild(div);
+      });
     }
   </script>
 </body>
