@@ -66,7 +66,7 @@
   </section>
 
   <!-- HIDDEN ADMIN PANEL -->
-  <section id="adminPanel" class="fixed bottom-0 right-0 bg-black text-white p-6 rounded-tl-lg z-50 shadow-lg w-96">
+  <section id="adminPanel" class="fixed bottom-0 right-0 bg-black text-white p-6 rounded-tl-lg z-50 shadow-lg w-96 max-h-screen overflow-y-auto">
     <h2 class="text-xl font-bold mb-2">Admin Panel</h2>
     <p class="mb-4 text-sm text-gray-300">Welcome, Carterprojects32. You are in full control.</p>
 
@@ -76,6 +76,13 @@
       <input id="posterTitle" type="text" placeholder="Poster Title" class="w-full mb-2 px-2 py-1 rounded text-black">
       <input id="posterPrice" type="text" placeholder="Price" class="w-full mb-2 px-2 py-1 rounded text-black">
       <button onclick="addPoster()" class="bg-green-600 px-3 py-2 rounded w-full hover:bg-green-700 text-sm">➕ Add Poster</button>
+    </div>
+
+    <!-- Transaction Summary -->
+    <div class="mb-4 border-t border-gray-700 pt-4">
+      <h3 class="text-md font-semibold mb-2">💰 Earnings Tracker</h3>
+      <p>Total Earnings: <span id="earnings" class="font-bold">$45</span></p>
+      <p>Posters Sold: <span id="posterCount" class="font-bold">3</span></p>
     </div>
 
     <!-- Self-Destruct -->
@@ -95,6 +102,9 @@
   <!-- SCRIPT: SECRET TRIGGER & POSTER FUNCTION -->
   <script>
     let inputCode = '';
+    let totalEarnings = 45;
+    let postersSold = 3;
+
     document.addEventListener('keydown', function(e) {
       inputCode += e.key;
       if (inputCode.includes('4729open')) {
@@ -107,8 +117,8 @@
     function addPoster() {
       const img = document.getElementById('posterImage').value;
       const title = document.getElementById('posterTitle').value;
-      const price = document.getElementById('posterPrice').value;
-      if (!img || !title || !price) return alert('Fill out all fields');
+      const price = parseFloat(document.getElementById('posterPrice').value);
+      if (!img || !title || isNaN(price)) return alert('Fill out all fields with valid data');
 
       const grid = document.getElementById('posterGrid');
       const card = document.createElement('div');
@@ -120,6 +130,13 @@
       `;
       grid.appendChild(card);
 
+      // Update earnings
+      totalEarnings += price;
+      postersSold++;
+      document.getElementById('earnings').textContent = `$${totalEarnings}`;
+      document.getElementById('posterCount').textContent = postersSold;
+
+      // Clear fields
       document.getElementById('posterImage').value = '';
       document.getElementById('posterTitle').value = '';
       document.getElementById('posterPrice').value = '';
