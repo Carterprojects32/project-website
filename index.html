@@ -37,6 +37,7 @@
       position: fixed;
       top: 60px;
       right: 60px;
+      width: 300px;
       background: #111;
       color: #fff;
       padding: 20px;
@@ -45,9 +46,14 @@
       z-index: 1000;
     }
 
+    #adminPanel h2 {
+      margin-top: 0;
+    }
+
     #adminPanel button {
       margin-top: 10px;
-      background: crimson;
+      width: 100%;
+      background: #333;
       color: white;
       border: none;
       padding: 10px 15px;
@@ -56,6 +62,14 @@
     }
 
     #adminPanel button:hover {
+      background: #555;
+    }
+
+    #adminPanel .danger {
+      background: crimson;
+    }
+
+    #adminPanel .danger:hover {
       background: darkred;
     }
   </style>
@@ -83,8 +97,10 @@
   <!-- Stealth Admin Panel -->
   <div id="adminPanel">
     <h2>Admin Panel</h2>
-    <p>Welcome, operator. You are now in stealth mode.</p>
-    <button onclick="nukeSystem()">Self-Destruct</button>
+    <button onclick="alert('Product Manager Coming Soon')">🛠️ Manage Posters</button>
+    <button onclick="alert('Earnings: $0.00 (Live tracking coming soon)')">💰 View Earnings</button>
+    <button onclick="alert('No visitor data available (yet)')">👁️ Visitor Logs</button>
+    <button class="danger" onclick="nukeSystem()">💣 Self-Destruct</button>
   </div>
 
   <script>
