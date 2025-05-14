@@ -28,7 +28,7 @@
   <!-- POSTERS SECTION -->
   <section id="posters" class="bg-white py-16 px-4">
     <h2 class="text-2xl font-semibold text-center mb-10">Featured Posters</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    <div id="posterGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
       <div class="text-center">
         <img src="https://via.placeholder.com/400x600?text=Galaxy+Dream" alt="Galaxy Dream" class="mx-auto rounded shadow">
         <h3 class="mt-4 font-semibold">Galaxy Dream</h3>
@@ -66,19 +66,20 @@
   </section>
 
   <!-- HIDDEN ADMIN PANEL -->
-  <section id="adminPanel" class="fixed bottom-0 right-0 bg-black text-white p-6 rounded-tl-lg z-50 shadow-lg w-80">
+  <section id="adminPanel" class="fixed bottom-0 right-0 bg-black text-white p-6 rounded-tl-lg z-50 shadow-lg w-96">
     <h2 class="text-xl font-bold mb-2">Admin Panel</h2>
     <p class="mb-4 text-sm text-gray-300">Welcome, Carterprojects32. You are in full control.</p>
 
-    <!-- Poster Management Placeholder -->
+    <!-- Poster Upload Form -->
     <div class="mb-4">
-      <p class="text-sm mb-1">🖼️ Poster Controls Coming Soon...</p>
-      <button class="bg-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-600">Upload Poster (Coming)</button>
+      <input id="posterImage" type="text" placeholder="Image URL" class="w-full mb-2 px-2 py-1 rounded text-black">
+      <input id="posterTitle" type="text" placeholder="Poster Title" class="w-full mb-2 px-2 py-1 rounded text-black">
+      <input id="posterPrice" type="text" placeholder="Price" class="w-full mb-2 px-2 py-1 rounded text-black">
+      <button onclick="addPoster()" class="bg-green-600 px-3 py-2 rounded w-full hover:bg-green-700 text-sm">➕ Add Poster</button>
     </div>
 
     <!-- Self-Destruct -->
-    <button onclick="document.getElementById('adminPanel').style.display='none'"
-            class="bg-red-600 px-4 py-2 rounded hover:bg-red-700 text-sm mt-2 w-full">
+    <button onclick="document.getElementById('adminPanel').style.display='none'" class="bg-red-600 px-4 py-2 rounded hover:bg-red-700 text-sm mt-2 w-full">
       🧨 Self-Destruct
     </button>
   </section>
@@ -91,7 +92,7 @@
     <p class="mt-2 text-gray-500">Built with love (and a little HTML magic)</p>
   </footer>
 
-  <!-- SECRET TRIGGER -->
+  <!-- SCRIPT: SECRET TRIGGER & POSTER FUNCTION -->
   <script>
     let inputCode = '';
     document.addEventListener('keydown', function(e) {
@@ -102,6 +103,27 @@
       }
       if (inputCode.length > 20) inputCode = inputCode.slice(-10);
     });
+
+    function addPoster() {
+      const img = document.getElementById('posterImage').value;
+      const title = document.getElementById('posterTitle').value;
+      const price = document.getElementById('posterPrice').value;
+      if (!img || !title || !price) return alert('Fill out all fields');
+
+      const grid = document.getElementById('posterGrid');
+      const card = document.createElement('div');
+      card.className = 'text-center';
+      card.innerHTML = `
+        <img src="${img}" alt="${title}" class="mx-auto rounded shadow">
+        <h3 class="mt-4 font-semibold">${title}</h3>
+        <p class="text-gray-600">$${price}</p>
+      `;
+      grid.appendChild(card);
+
+      document.getElementById('posterImage').value = '';
+      document.getElementById('posterTitle').value = '';
+      document.getElementById('posterPrice').value = '';
+    }
   </script>
 </body>
 </html>
