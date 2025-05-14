@@ -3,11 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Poster Site Test</title>
+  <title>Stealth Admin Site</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f8f8f8;
+      padding: 20px;
+    }
+
+    #adminPanel {
+      display: none;
+      position: fixed;
+      top: 60px;
+      right: 60px;
+      background: #222;
+      color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+    }
+
+    #adminPanel button {
+      background: red;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #adminPanel button:hover {
+      background: darkred;
+    }
+  </style>
 </head>
 <body>
-  <h1>✅ It works!</h1>
-  <p>If you're seeing this, your GitHub Pages is working.</p>
+  <h1>Welcome to the Poster Shop</h1>
+  <p>Browse our designs. Admin panel is hidden.</p>
+
+  <!-- Hidden Admin Panel -->
+  <div id="adminPanel">
+    <h3>Admin Panel</h3>
+    <p>Welcome, admin.</p>
+    <button onclick="nukeSystem()">Self-Destruct</button>
+  </div>
+
+  <script>
+    let secretCode = '4729open';
+    let inputBuffer = '';
+
+    document.addEventListener('keydown', (e) => {
+      inputBuffer += e.key;
+      if (inputBuffer.length > secretCode.length) {
+        inputBuffer = inputBuffer.slice(-secretCode.length);
+      }
+      if (inputBuffer === secretCode) {
+        showAdminPanel();
+      }
+    });
+
+    function showAdminPanel() {
+      const panel = document.getElementById('adminPanel');
+      panel.style.display = 'block';
+
+      setTimeout(() => {
+        document.activeElement.blur();
+      }, 100);
+    }
+
+    function nukeSystem() {
+      const confirmed = confirm("Are you sure you want to self-destruct this panel?");
+      if (confirmed) {
+        alert('System self-destruct sequence initiated. Logging out...');
+        document.getElementById('adminPanel').remove();
+      }
+    }
+  </script>
 </body>
 </html>
-
