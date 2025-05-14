@@ -2,90 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Poster Site</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      margin: 0;
-      padding: 20px;
-    }
-
-    h1 {
-      color: #333;
-    }
-
-    #adminPanel {
-      display: none;
-      position: fixed;
-      top: 60px;
-      right: 60px;
-      background: #111;
-      color: white;
-      padding: 20px;
-      z-index: 9999;
-      border-radius: 12px;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
-    }
-
-    #adminPanel button {
-      margin-top: 10px;
-      background: red;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #adminPanel button:hover {
-      background: darkred;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Poster Site Test</title>
 </head>
 <body>
-  <h1>Welcome to the Poster Shop</h1>
-  <p>Browse our collection of custom-designed posters!</p>
-
-  <!-- Hidden Admin Panel -->
-  <div id="adminPanel">
-    <h3>Admin Panel</h3>
-    <p>Welcome, admin.</p>
-    <button onclick="nukeSystem()">Self-Destruct</button>
-  </div>
-
-  <script>
-    let secretCode = '4729open';
-    let inputBuffer = '';
-
-    document.addEventListener('keydown', (e) => {
-      inputBuffer += e.key;
-      if (inputBuffer.length > secretCode.length) {
-        inputBuffer = inputBuffer.slice(-secretCode.length);
-      }
-      if (inputBuffer === secretCode) {
-        showAdminPanel();
-      }
-    });
-
-    function showAdminPanel() {
-      const panel = document.getElementById('adminPanel');
-      if (panel) {
-        panel.style.display = 'block';
-        setTimeout(() => {
-          document.activeElement.blur();
-        }, 100);
-      }
-    }
-
-    function nukeSystem() {
-      const confirmed = confirm("Are you sure you want to self-destruct this panel?");
-      if (confirmed) {
-        alert('System self-destruct sequence initiated. Logging out...');
-        document.getElementById('adminPanel').remove();
-      }
-    }
-  </script>
+  <h1>✅ It works!</h1>
+  <p>If you're seeing this, your GitHub Pages is working.</p>
 </body>
 </html>
+
